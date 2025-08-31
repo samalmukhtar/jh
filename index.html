@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -92,6 +93,10 @@
         
         .btn-size-64 {
             background: linear-gradient(to bottom, #9b59b6, #8e44ad);
+        }
+        
+        .btn-house {
+            background: linear-gradient(to bottom, #2ecc71, #27ae60);
         }
         
         .grid-container {
@@ -460,8 +465,151 @@
             font-weight: bold;
         }
         
+        .house-assignment {
+            background: rgba(25, 30, 50, 0.7);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 30px;
+        }
+        
+        .house-title {
+            font-size: 1.6rem;
+            color: #f1c40f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .house-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .house-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .house-cell {
+            background: rgba(44, 62, 80, 0.6);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 1px dashed rgba(241, 196, 15, 0.5);
+        }
+        
+        .house-number {
+            font-weight: bold;
+            color: #f1c40f;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .house-content {
+            min-height: 60px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px;
+            color: #d6eaf8;
+            font-size: 0.9rem;
+        }
+        
+        .house-placeholder {
+            color: rgba(214, 234, 248, 0.5);
+            font-style: italic;
+        }
+        
+        .daughter-generation {
+            background: rgba(25, 30, 50, 0.7);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 30px;
+        }
+        
+        .daughter-title {
+            font-size: 1.6rem;
+            color: #f1c40f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .daughter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .daughter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .daughter-cell {
+            background: rgba(44, 62, 80, 0.6);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 1px dashed rgba(46, 204, 113, 0.5);
+        }
+        
+        .daughter-number {
+            font-weight: bold;
+            color: #2ecc71;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .daughter-content {
+            min-height: 60px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 10px;
+            color: #d6eaf8;
+            font-size: 0.9rem;
+        }
+        
+        .instructions {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 25px;
+            font-size: 1.05rem;
+            color: #d6eaf8;
+        }
+        
+        .instructions-title {
+            color: #f1c40f;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .instructions-list {
+            padding-left: 25px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 8px;
+        }
+        
         @media (max-width: 900px) {
             .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .house-grid, .daughter-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
@@ -476,6 +624,10 @@
         
         @media (max-width: 600px) {
             .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .house-grid, .daughter-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -504,6 +656,11 @@
         .pulse {
             animation: pulse 0.5s ease;
         }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(241, 196, 15, 0.2), transparent);
+            border: 1px solid rgba(241, 196, 15, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -517,6 +674,7 @@
             <button class="btn btn-size-16 active" onclick="changeGridSize(16)">16 خانة (النظام الأساسي)</button>
             <button class="btn btn-size-32" onclick="changeGridSize(32)">32 خانة (نظام متوسع)</button>
             <button class="btn btn-size-64" onclick="changeGridSize(64)">64 خانة (النظام الكامل)</button>
+            <button class="btn btn-house" onclick="showHouseAssignment()">تسكين البيوت</button>
         </div>
         
         <div class="grid-container">
@@ -527,6 +685,52 @@
             
             <div class="grid" id="grid">
                 <!-- سيتم ملء الخانات ديناميكيًا هنا -->
+            </div>
+        </div>
+        
+        <div class="house-assignment" id="house-assignment" style="display: none;">
+            <h2 class="house-title">تسكين البيوت</h2>
+            <div class="house-controls">
+                <button class="btn" onclick="manuallyAssignHouses()">تسكين يدوي</button>
+                <button class="btn" onclick="randomlyAssignHouses()">تسكين عشوائي</button>
+                <button class="btn" onclick="generateDaughters()">توليد البنات من الأمهات</button>
+                <button class="btn" onclick="resetHouses()">إعادة تعيين</button>
+            </div>
+            
+            <div class="house-grid" id="house-grid">
+                <!-- سيتم ملء البيوت هنا -->
+            </div>
+            
+            <div class="instructions">
+                <h3 class="instructions-title">تعليمات تسكين البيوت</h3>
+                <ol class="instructions-list">
+                    <li>اضغط على زر "تسكين يدوي" لاختيار الخانات يدويًا</li>
+                    <li>اضغط على زر "تسكين عشوائي" لتوليد تسكين تلقائي</li>
+                    <li>اضغط على زر "توليد البنات من الأمهات" لإنشاء الخانات الفرعية</li>
+                    <li>اختر خانة من الشبكة الرئيسية ثم اضغط على بيت لتسكينها فيه</li>
+                    <li>البيوت الـ 12 تشمل بيوت السؤال والشخص والمال والصحة وغيرها</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="daughter-generation" id="daughter-generation" style="display: none;">
+            <h2 class="daughter-title">البنات من الأمهات</h2>
+            
+            <div class="daughter-grid" id="daughter-grid">
+                <!-- سيتم ملء خانات البنات هنا -->
+            </div>
+            
+            <div class="instructions">
+                <h3 class="instructions-title">شرح نظام البنات من الأمهات</h3>
+                <p>في علم الرمل، يتم توليد خانات إضافية (البنات) من الخانات الأساسية (الأمهات) عبر عملية رياضية محددة:</p>
+                <ol class="instructions-list">
+                    <li>تتكون كل خانة من 4 أسطر (أعلى إلى أسفل)</li>
+                    <li>لإنشاء "البنت الأولى"، نأخذ السطر الأول من كل خانة من الخانات الأربع الأولى</li>
+                    <li>لإنشاء "البنت الثانية"، نأخذ السطر الثاني من كل خانة من الخانات الأربع الأولى</li>
+                    <li>وهكذا حتى البنت الرابعة التي تأخذ السطر الرابع</li>
+                    <li>هذه العملية تكرر لخلق 4 خانات إضافية تسمى "البنات"</li>
+                    <li>ثم يمكن تكرار العملية مع الخانات الجديدة لإنشاء خانات إضافية (32 أو 64 خانة)</li>
+                </ol>
             </div>
         </div>
         
@@ -601,8 +805,8 @@
     </div>
 
     <script>
-        // البيانات الكاملة لجميع الخانات
-        const cellsData = [
+        // البيانات الأساسية لـ 16 خانة
+        const baseCellsData = [
             {
                 id: 1,
                 binary: '0100',
@@ -864,18 +1068,28 @@
         // المتغيرات الأساسية
         let currentSize = 16;
         let selectedCells = [];
-        
+        let houseAssignment = Array(12).fill(null);
+        let isManualAssignmentMode = false;
+        let activeCellForAssignment = null;
+        let generatedDaughters = [];
+
         // تهيئة النظام
         document.addEventListener('DOMContentLoaded', function() {
             generateGrid();
             updateStats();
+            initializeHouseGrid();
+            initializeDaughterGrid();
         });
-        
+
         // تغيير حجم الشبكة
         function changeGridSize(size) {
             currentSize = size;
             document.querySelectorAll('.btn').forEach(btn => {
-                btn.classList.remove('active');
+                if (btn.classList.contains('btn-size-16') || 
+                    btn.classList.contains('btn-size-32') || 
+                    btn.classList.contains('btn-size-64')) {
+                    btn.classList.remove('active');
+                }
             });
             
             if (size === 16) {
@@ -890,7 +1104,7 @@
             generateGrid();
             updateStats();
         }
-        
+
         // إنشاء الشبكة
         function generateGrid() {
             const grid = document.getElementById('grid');
@@ -906,11 +1120,12 @@
             
             // إنشاء الخانات
             for (let i = 0; i < currentSize; i++) {
-                const cellData = cellsData[i % 16]; // إعادة استخدام البيانات للخانات الإضافية
+                const cellData = getCellData(i);
                 
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 cell.dataset.id = i + 1;
+                cell.dataset.index = i;
                 
                 // تحديد ما إذا كانت الخانة محددة
                 if (selectedCells.includes(i + 1)) {
@@ -934,13 +1149,131 @@
                 `;
                 
                 // إضافة معالجات الأحداث
-                cell.addEventListener('click', () => openCellDetails(cellData));
+                cell.addEventListener('click', () => handleCellClick(cellData, i + 1));
                 cell.addEventListener('dblclick', () => revealSecretMessage(cellData));
                 
                 grid.appendChild(cell);
             }
         }
-        
+
+        // الحصول على بيانات الخانة بناءً على الحجم المطلوب
+        function getCellData(index) {
+            if (currentSize === 16) {
+                return baseCellsData[index % 16];
+            } else if (currentSize === 32) {
+                if (index < 16) {
+                    return baseCellsData[index];
+                } else {
+                    // توليد خانات إضافية باستخدام "البنات من الأمهات"
+                    return generateDaughterCell(index - 16);
+                }
+            } else {
+                if (index < 16) {
+                    return baseCellsData[index];
+                } else if (index < 32) {
+                    return generateDaughterCell(index - 16);
+                } else {
+                    // توليد خانات إضافية باستخدام "البنات من البنات"
+                    return generateDaughterOfDaughterCell(index - 32);
+                }
+            }
+        }
+
+        // توليد خانة من "البنات من الأمهات"
+        function generateDaughterCell(index) {
+            // هذه وظيفة مبسطة لتوليد الخانات الإضافية
+            // في النظام الحقيقي، يجب استخدام الخوارزمية الصحيحة لعلم الرمل
+            
+            const motherIndex = index % 4;
+            const baseCell = baseCellsData[motherIndex];
+            
+            // تعديل بسيط على الخانة الأصلية لإنشاء خانة "البنت"
+            const newBinary = baseCell.binary.split('').reverse().join('');
+            const newNames = [
+                `بنت ${baseCell.names[0]}`,
+                `حفيدة ${baseCell.names[1]}`,
+                `أم ${baseCell.names[2]}`,
+                `بنت ${baseCell.names[3]}`,
+                `بنت ${baseCell.names[4]}`
+            ];
+            
+            return {
+                id: 17 + index,
+                binary: newBinary,
+                names: newNames,
+                zodiac: baseCell.zodiac,
+                element: baseCell.element === 'هواء' ? 'تراب' : 
+                        baseCell.element === 'تراب' ? 'ماء' : 
+                        baseCell.element === 'ماء' ? 'نار' : 'هواء',
+                divineNames: baseCell.divineNames.slice(1).concat(baseCell.divineNames[0]),
+                description: `هذا شكل مُولَّد من ${baseCell.names[0]}. ${baseCell.description.substring(0, 200)}...`,
+                secretMessage: `رسالة سرية من ${baseCell.names[0]}. ${baseCell.secretMessage.substring(0, 100)}...`,
+                algorithm: `خوارزمية مُولَّدة من ${baseCell.algorithm.split(':')[0]}: 1. تأمل في الخانة الأم 2. اتبع خوارزمية الخانة الأم مع تعديلات`,
+                guidance: {
+                    general: `هذا توجيه مُولَّد من ${baseCell.names[0]}. ${baseCell.guidance.general.substring(0, 50)}...`,
+                    financial: `هذا توجيه مالي مُولَّد من ${baseCell.names[0]}. ${baseCell.guidance.financial.substring(0, 50)}...`,
+                    emotional: `هذا توجيه عاطفي مُولَّد من ${baseCell.names[0]}. ${baseCell.guidance.emotional.substring(0, 50)}...`
+                }
+            };
+        }
+
+        // توليد خانة من "البنات من البنات"
+        function generateDaughterOfDaughterCell(index) {
+            const daughterIndex = index % 16;
+            const baseDaughter = generateDaughterCell(daughterIndex);
+            
+            // تعديل إضافي على الخانة الفرعية
+            const newBinary = baseDaughter.binary.split('').reverse().join('');
+            const newNames = [
+                `بنت بنت ${baseDaughter.names[0]}`,
+                `حفيدة بنت ${baseDaughter.names[1]}`,
+                `أم بنت ${baseDaughter.names[2]}`,
+                `بنت بنت ${baseDaughter.names[3]}`,
+                `بنت بنت ${baseDaughter.names[4]}`
+            ];
+            
+            return {
+                id: 33 + index,
+                binary: newBinary,
+                names: newNames,
+                zodiac: baseDaughter.zodiac === 'الزهرة' ? 'المشتري' :
+                        baseDaughter.zodiac === 'المشتري' ? 'المريخ' :
+                        baseDaughter.zodiac === 'المريخ' ? 'القمر' : 'الزهرة',
+                element: baseDaughter.element === 'هواء' ? 'تراب' : 
+                        baseDaughter.element === 'تراب' ? 'ماء' : 
+                        baseDaughter.element === 'ماء' ? 'نار' : 'هواء',
+                divineNames: [...baseDaughter.divineNames].reverse(),
+                description: `هذا شكل مُولَّد من بنت ${baseDaughter.names[0]}. ${baseDaughter.description.substring(0, 200)}...`,
+                secretMessage: `رسالة سرية من بنت ${baseDaughter.names[0]}. ${baseDaughter.secretMessage.substring(0, 100)}...`,
+                algorithm: `خوارزمية مُولَّدة من بنت ${baseDaughter.algorithm.split(':')[0]}: 1. تأمل في الخانة الفرعية 2. اتبع خوارزمية الخانة الفرعية مع تعديلات`,
+                guidance: {
+                    general: `هذا توجيه مُولَّد من بنت ${baseDaughter.names[0]}. ${baseDaughter.guidance.general.substring(0, 50)}...`,
+                    financial: `هذا توجيه مالي مُولَّد من بنت ${baseDaughter.names[0]}. ${baseDaughter.guidance.financial.substring(0, 50)}...`,
+                    emotional: `هذا توجيه عاطفي مُولَّد من بنت ${baseDaughter.names[0]}. ${baseDaughter.guidance.emotional.substring(0, 50)}...`
+                }
+            };
+        }
+
+        // معالجة النقر على الخانة
+        function handleCellClick(cellData, cellId) {
+            if (isManualAssignmentMode && activeCellForAssignment) {
+                assignCellToHouse(cellData, activeCellForAssignment);
+                activeCellForAssignment = null;
+                isManualAssignmentMode = false;
+                document.querySelectorAll('.btn-house').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            } else {
+                openCellDetails(cellData);
+                
+                // إضافة الخانة إلى المحددات إذا لم تكن موجودة
+                if (!selectedCells.includes(cellId)) {
+                    selectedCells.push(cellId);
+                    updateStats();
+                }
+            }
+        }
+
         // فتح تفاصيل الخانة
         function openCellDetails(cellData) {
             // تحديث محتوى النافذة المنبثقة
@@ -976,15 +1309,8 @@
             
             // عرض النافذة المنبثقة
             document.getElementById('modal').style.display = 'flex';
-            
-            // إضافة الخانة إلى المحددات إذا لم تكن موجودة
-            if (!selectedCells.includes(cellData.id)) {
-                selectedCells.push(cellData.id);
-                document.querySelector(`.cell[data-id="${cellData.id}"]`).classList.add('active');
-                updateStats();
-            }
         }
-        
+
         // كشف الرسالة السرية
         function revealSecretMessage(cellData) {
             const secretMessage = document.getElementById('secret-message');
@@ -999,17 +1325,203 @@
                 secretMessage.classList.remove('pulse');
             }, 500);
         }
-        
+
         // إغلاق النافذة المنبثقة
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
         }
-        
+
         // تحديث الإحصائيات
         function updateStats() {
             document.getElementById('selected-count').textContent = selectedCells.length;
         }
-        
+
+        // إظهار تسكين البيوت
+        function showHouseAssignment() {
+            const houseAssignmentSection = document.getElementById('house-assignment');
+            houseAssignmentSection.style.display = houseAssignmentSection.style.display === 'none' ? 'block' : 'none';
+            
+            const daughterGenerationSection = document.getElementById('daughter-generation');
+            daughterGenerationSection.style.display = 'none';
+        }
+
+        // تهيئة شبكة البيوت
+        function initializeHouseGrid() {
+            const houseGrid = document.getElementById('house-grid');
+            houseGrid.innerHTML = '';
+            
+            const houseNames = [
+                "بيت السؤال", "بيت الشخص", "بيت المال", "بيت الصحة",
+                "بيت الأولاد", "بيت الأعداء", "بيت الزوجة", "بيت الموت",
+                "بيت السفر", "بيت الأخوة", "بيت الأصدقاء", "بيت الأمل"
+            ];
+            
+            for (let i = 0; i < 12; i++) {
+                const houseCell = document.createElement('div');
+                houseCell.className = 'house-cell';
+                houseCell.dataset.house = i + 1;
+                
+                houseCell.innerHTML = `
+                    <div class="house-number">البيت ${i + 1}</div>
+                    <div class="house-name">${houseNames[i]}</div>
+                    <div class="house-content">
+                        <div class="house-placeholder">اضغط هنا لتسكين خانة</div>
+                    </div>
+                `;
+                
+                houseCell.addEventListener('click', () => {
+                    if (isManualAssignmentMode && activeCellForAssignment) {
+                        assignCellToHouse(activeCellForAssignment, i);
+                        activeCellForAssignment = null;
+                        isManualAssignmentMode = false;
+                        document.querySelectorAll('.btn-house').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                    }
+                });
+                
+                houseGrid.appendChild(houseCell);
+            }
+        }
+
+        // تعيين خانة إلى بيت
+        function assignCellToHouse(cellData, houseIndex) {
+            houseAssignment[houseIndex] = cellData;
+            updateHouseGrid();
+        }
+
+        // تحديث عرض شبكة البيوت
+        function updateHouseGrid() {
+            const houseCells = document.querySelectorAll('.house-cell');
+            
+            houseCells.forEach((cell, index) => {
+                const content = cell.querySelector('.house-content');
+                
+                if (houseAssignment[index]) {
+                    content.innerHTML = `
+                        <div style="font-weight: bold; color: #f1c40f;">${houseAssignment[index].names[0]}</div>
+                        <div style="font-size: 0.8rem; color: #3498db;">${houseAssignment[index].binary}</div>
+                        <div style="font-size: 0.8rem; color: #bdc3c7; margin-top: 5px;">${houseAssignment[index].zodiac}</div>
+                    `;
+                } else {
+                    content.innerHTML = '<div class="house-placeholder">اضغط هنا لتسكين خانة</div>';
+                }
+            });
+        }
+
+        // تسكين يدوي
+        function manuallyAssignHouses() {
+            isManualAssignmentMode = true;
+            activeCellForAssignment = null;
+            
+            // تمييز الأزرار
+            document.querySelectorAll('.btn').forEach(btn => {
+                if (btn.textContent.includes('تسكين يدوي')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            alert('الرجاء اختيار خانة من الشبكة الرئيسية ثم النقر على البيت الذي تريد تسكينها فيه.');
+        }
+
+        // تسكين عشوائي
+        function randomlyAssignHouses() {
+            // إعادة تعيين التسكين
+            houseAssignment = Array(12).fill(null);
+            
+            // اختيار 12 خانة عشوائية من الخانات المحددة
+            const availableCells = selectedCells.map(id => baseCellsData[(id - 1) % 16]);
+            
+            if (availableCells.length === 0) {
+                alert('يرجى تحديد بعض الخانات أولاً من الشبكة الرئيسية.');
+                return;
+            }
+            
+            // إذا كانت الخانات المحددة أقل من 12، نكرر بعض الخانات
+            while (availableCells.length < 12) {
+                availableCells.push(availableCells[Math.floor(Math.random() * availableCells.length)]);
+            }
+            
+            // خلط الخانات
+            for (let i = availableCells.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [availableCells[i], availableCells[j]] = [availableCells[j], availableCells[i]];
+            }
+            
+            // تعيين أول 12 خانة إلى البيوت
+            for (let i = 0; i < 12; i++) {
+                houseAssignment[i] = availableCells[i];
+            }
+            
+            updateHouseGrid();
+        }
+
+        // إنشاء خانات "البنات من الأمهات"
+        function generateDaughters() {
+            generatedDaughters = [];
+            
+            // في النظام الحقيقي، يجب استخدام الخوارزمية الصحيحة لعلم الرمل
+            // هنا نقوم ببساطة بتوليد 4 خانات فرعية
+            
+            for (let i = 0; i < 4; i++) {
+                generatedDaughters.push(generateDaughterCell(i));
+            }
+            
+            updateDaughterGrid();
+            
+            // إظهار قسم توليد البنات
+            document.getElementById('daughter-generation').style.display = 'block';
+            document.getElementById('house-assignment').style.display = 'none';
+        }
+
+        // تهيئة شبكة البنات
+        function initializeDaughterGrid() {
+            const daughterGrid = document.getElementById('daughter-grid');
+            daughterGrid.innerHTML = '';
+            
+            for (let i = 0; i < 4; i++) {
+                const daughterCell = document.createElement('div');
+                daughterCell.className = 'daughter-cell';
+                daughterCell.dataset.daughter = i + 1;
+                
+                daughterCell.innerHTML = `
+                    <div class="daughter-number">البنت ${i + 1}</div>
+                    <div class="daughter-content">
+                        <div class="house-placeholder">لم يتم التوليد بعد</div>
+                    </div>
+                `;
+                
+                daughterGrid.appendChild(daughterCell);
+            }
+        }
+
+        // تحديث عرض شبكة البنات
+        function updateDaughterGrid() {
+            const daughterCells = document.querySelectorAll('.daughter-cell');
+            
+            daughterCells.forEach((cell, index) => {
+                const content = cell.querySelector('.daughter-content');
+                
+                if (generatedDaughters[index]) {
+                    content.innerHTML = `
+                        <div style="font-weight: bold; color: #2ecc71;">${generatedDaughters[index].names[0]}</div>
+                        <div style="font-size: 0.8rem; color: #3498db;">${generatedDaughters[index].binary}</div>
+                        <div style="font-size: 0.8rem; color: #bdc3c7; margin-top: 5px;">${generatedDaughters[index].zodiac}</div>
+                    `;
+                } else {
+                    content.innerHTML = '<div class="house-placeholder">لم يتم التوليد بعد</div>';
+                }
+            });
+        }
+
+        // إعادة تعيين البيوت
+        function resetHouses() {
+            houseAssignment = Array(12).fill(null);
+            updateHouseGrid();
+        }
+
         // إغلاق النافذة المنبثقة عند النقر خارج المحتوى
         window.onclick = function(event) {
             const modal = document.getElementById('modal');
